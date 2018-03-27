@@ -6,7 +6,6 @@ const fs=require('fs');
 var fetchNote =() =>{
   try {
     var notesString=fs.readFileSync('yup.json');
-    console.log(JSON.parse(notesString));
     return JSON.parse(notesString);
 } catch (e) {
   return [];
@@ -42,9 +41,6 @@ if(duplicatenote.length===0){
 }
 };
 
-
-
-
 var getAll=() =>{
   console.log('getting all notes');
 };
@@ -52,8 +48,27 @@ var getAll=() =>{
 var getNote=(title) =>{
   console.log('getting note',title);
 };
+
+//removing notes
+
 var removeNote=(title)=>{
-  console.log('removing note',title);
+  //fetch notes
+  var arr = fetchNote();
+  //filter notes,removing the one with title
+  var rem=arr.filter((note)=>{
+    return note.title!==title;});
+  //save new notes array
+  saveNote(rem);
+
+
+
+  //how we can detect that note is removed or not...
+  if(arr.length!==rem.length){
+    console.log('note is  removed',title);
+  }
+  else {
+    console.log('note ',title,' is not present');
+  }
 };
 
 module.exports={

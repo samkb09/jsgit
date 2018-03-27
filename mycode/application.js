@@ -8,7 +8,7 @@ var command = process.argv[2];
 //adding new node
 
 if(command === 'add'){
-  console.log('adding new note');
+  console.log('command: ',command);
   bs.addNotes(argv.title,argv.body);
   console.log(yargs.argv);
 
@@ -22,7 +22,8 @@ else if (command==='read') {
 
 }
 else if (command==='remove') {
-  console.log('removing notes');
+  console.log('command: ',command);
+  bs.removeNote(argv.title);
 
 }
 else {
