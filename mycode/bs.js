@@ -46,7 +46,16 @@ var getAll=() =>{
 };
 
 var getNote=(title) =>{
-  console.log('getting note',title);
+  var ac=fetchNote();
+  var vc=ac.filter((note)=>{
+    return note.title===title;});
+  if(vc.length!==0){
+    console.log(vc);
+  }
+  else {
+    console.log('note of title',title,'is not present');
+  }
+
 };
 
 //removing notes

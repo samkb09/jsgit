@@ -14,11 +14,13 @@ if(command === 'add'){
 
 }
 else if (command==='list') {
-  console.log('listing notes');
 
+console.log('listing all notes');
 }
 else if (command==='read') {
-  console.log('reading all notes');
+  console.log('cpmmand: ',command);
+  bs.getNote(argv.title);
+
 
 }
 else if (command==='remove') {
