@@ -1,6 +1,8 @@
-const request =require('request');
-
 const yargs=require('yargs');
+
+
+const geocode=require('./geocode/geocode.js');
+const weather=require('./weather/weather.js');
 
 const argv=yargs
 .option({
@@ -15,15 +17,21 @@ const argv=yargs
 .alias('help','h')
 .argv;                //takes all the configuration runs it arguments and save in argv
 
+var arr=geocode.reqmade(argv.a,(errormessage,result) =>{
+  if(errormessage){
+    console.log(errormessage)
+  }
+  else if (result) {
+    console.log(result.address);
+    weather.getweather(result.latitude, result.longitude,(errormessage,weatherresult) =>{
+      if(errormessage){
+        console.log(errormessage)
+      }
+      else if (weatherresult) {
+        console.log(`its currently ${weatherresult.temperature}`);
+        console.log(`its feel like ${weatherresult.apparentTemperature}`);
+      }
+    });
 
-console.log(argv);
-
-
-request({
-  url:'https://maps.googleapis.com/maps/api/geocode/json?address=sentrum%20mall%20asansol%20westbengal',
-  json:true
-}, (error,response,body)=> {
-  console.log(body.results[0].formatted_address);
-  console.log(body.results[0].geometry.location.lat);
-  console.log(body.results[0].geometry.location.lng);
+  }
 });
